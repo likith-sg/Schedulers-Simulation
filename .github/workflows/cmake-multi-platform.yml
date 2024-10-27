@@ -1,0 +1,80 @@
+name: C Program Build and Test
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        compiler: [gcc, clang, cl]  # Using GCC, Clang, and MSVC (CL)
+      
+      fail-fast: false
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    - name: Set up Compiler
+      run: |
+        echo "Setting up compiler: ${{ matrix.compiler }} on ${{ matrix.os }}"
+        if [ "${{ matrix.os }}" == "ubuntu-latest" ]; then
+          sudo apt-get update
+          if [ "${{ matrix.compiler }}" == "gcc" ]; then
+            sudo apt-get install -y gcc
+          elif [ "${{ matrix.compiler }}" == "clang" ]; then
+            sudo apt-get install -y clang
+          fi
+        else
+          echo "Visual Studio build tools are pre-installed on Windows runners."
+        fi
+
+    - name: Compile the Program
+      run: |
+        echo "Compiling with ${{ matrix.compiler }} on ${{ matrix.os }}"
+        if [ "${{ matrix.os }}" == "ubuntu-latest" ]; then
+          if [ "${{ matrix.compiler }}" == "gcc" ]; then
+            gcc -o Schedulers_Simulation Schedulers_Simulation.c
+          elif [ "${{ matrix.compiler }}" == "clang" ]; then
+            clang -o Schedulers_Simulation Schedulers_Simulation.c
+          fi
+        else
+          cl /EHsc /Fe:Schedulers_Simulation.exe Schedulers_Simulation.c
+        fi
+
+    - name: Run the Program
+      run: |
+        echo "Running the program on ${{ matrix.os }}"
+        if [ "${{ matrix.os }}" == "ubuntu-latest" ]; then
+          ./Schedulers_Simulation
+        else
+          .\Schedulers_Simulation.exe
+        fi
+
+    - name: Check Output
+      run: |
+        echo "Checking program output..."
+        # You can add specific checks based on expected output here
+        # Example check for success message
+        if [ "${{ matrix.os }}" == "ubuntu-latest" ]; then
+          output=$(./Schedulers_Simulation)
+        else
+          output=$(.\Schedulers_Simulation.exe)
+        fi
+        echo "$output"
+        echo "Program executed successfully."
+
+    - name: Clean Up
+      run: |
+        echo "Cleaning up..."
+        if [ "${{ matrix.os }}" == "ubuntu-latest" ]; then
+          rm Schedulers_Simulation
+        else
+          del Schedulers_Simulation.exe
+        fi
