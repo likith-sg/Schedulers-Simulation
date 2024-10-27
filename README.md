@@ -37,17 +37,17 @@ To compile and run the program, follow these steps:
 ### Clone the Repository:
 ```bash
 git clone https://github.com/likith-sg/Schedulers-Simulation.git
-cd repo-name
+cd Schedulers-Simulation
 ```
 
 ### Compile the Program:
 ```bash
-gcc -o scheduling scheduling.c
+gcc -o Schedulers_Simulation Schedulers_Simulation.c
 ```
 
 ### Run the Progrm:
 ```bash
-./scheduling
+./Schedulers_Simulation
 ```
 
 ## Example Input/Output
