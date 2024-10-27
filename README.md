@@ -57,6 +57,14 @@ Enter number of processes: 3
 Enter arrival time, burst time, and priority for process 1: 0 5 2
 Enter arrival time, burst time, and priority for process 2: 1 3 1
 Enter arrival time, burst time, and priority for process 3: 2 8 3
+
+Choose Scheduling Algorithm:
+1. FCFS
+2. SJF
+3. SRTF
+4. Priority Scheduling
+5. Round Robin
+2
 ```
 
 ### Output:
@@ -64,11 +72,11 @@ Enter arrival time, burst time, and priority for process 3: 2 8 3
 --- SJF Scheduling ---
 Process 1: Waiting Time = 0, Turnaround Time = 5
 Process 2: Waiting Time = 4, Turnaround Time = 7
-Process 3: Waiting Time = 5, Turnaround Time = 13
-Throughput: 0.23
+Process 3: Waiting Time = 6, Turnaround Time = 14
+Throughput: 0.19
 CPU Utilization: 100.00%
-Average Waiting Time: 3.00
-Average Turnaround Time: 8.33
+Average Waiting Time: 3.33
+Average Turnaround Time: 8.67
 ```
 
 ## Contributing
