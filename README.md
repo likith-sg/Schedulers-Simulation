@@ -36,7 +36,7 @@ To compile and run the program, follow these steps:
 
 ### Clone the Repository:
 ```bash
-git clone https://github.com/your-username/repo-name.git
+git clone https://github.com/likith-sg/Schedulers-Simulation.git
 cd repo-name
 ```
 
