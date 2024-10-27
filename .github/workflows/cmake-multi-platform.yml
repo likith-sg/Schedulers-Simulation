@@ -52,23 +52,29 @@ jobs:
       run: |
         echo "Running the program on ${{ matrix.os }}"
         if [ "${{ matrix.os }}" == "ubuntu-latest" ]; then
-          ./Schedulers_Simulation
-        else
-          .\Schedulers_Simulation.exe
-        fi
-
-    - name: Check Output
-      run: |
-        echo "Checking program output..."
-        # You can add specific checks based on expected output here
-        # Example check for success message
-        if [ "${{ matrix.os }}" == "ubuntu-latest" ]; then
           output=$(./Schedulers_Simulation)
         else
           output=$(.\Schedulers_Simulation.exe)
         fi
         echo "$output"
-        echo "Program executed successfully."
+
+    - name: Check Output
+      run: |
+        echo "Checking program output..."
+        if [ "${{ matrix.os }}" == "ubuntu-latest" ]; then
+          output=$(./Schedulers_Simulation)
+        else
+          output=$(.\Schedulers_Simulation.exe)
+        fi
+        
+        # Example check for expected output (customize this based on your program)
+        echo "$output"
+        if [[ "$output" != *"expected_output_string"* ]]; then
+          echo "Output did not match the expected output."
+          exit 1
+        else
+          echo "Program executed successfully."
+        fi
 
     - name: Clean Up
       run: |
